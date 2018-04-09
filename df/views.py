@@ -1,0 +1,41 @@
+from django.shortcuts import render
+import uuid
+import dialogflow
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+# 요청 url 인 bbs/번호 에 대해서 urls.py 에 정의된 view.bbs_detail 이 호출된다
+@api_view(['GET', 'PUT', 'DELETE'])
+def df_result(request, text, format=None):
+
+    if request.method == 'GET':
+
+        project_id = 'restfultest-54056'
+        session_id = str(uuid.uuid4())
+        result = detect_intent_texts(project_id, session_id, text, 'en-US')
+        return Response(result)
+
+
+def detect_intent_texts(project_id, session_id, text, language_code):
+    """Returns the result of detect intent with texts as inputs.
+
+    Using the same `session_id` between requests allows continuation
+    of the conversaion."""
+
+    session_client = dialogflow.SessionsClient()
+
+    session = session_client.session_path(project_id, session_id)
+    print('Session path: {}\n'.format(session))
+
+
+    text_input = dialogflow.types.TextInput(
+        text=text, language_code=language_code)
+
+    query_input = dialogflow.types.QueryInput(text=text_input)
+
+    response = session_client.detect_intent(
+        session=session, query_input=query_input)
+
+    return '{}'.format (response)
+
+# Create your views here.
