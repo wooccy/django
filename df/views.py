@@ -41,11 +41,11 @@ def detect_intent_texts(project_id, session_id, text, language_code):
 
     resposeDic = {
         "query_text" : response.query_result.query_text,
+        "action" : response.query_result.action,
         "intent_detection_confidence" : response.query_result.intent_detection_confidence,
         "display_name" : response.query_result.intent.display_name,
         "parameters" : []
     }
-
 
     for param in response.query_result.parameters:
         paramDic = { param: response.query_result.parameters[param] }
