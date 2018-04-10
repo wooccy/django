@@ -4,6 +4,7 @@ import dialogflow
 import json
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+import re
 
 # 요청 url 인 bbs/번호 에 대해서 urls.py 에 정의된 view.bbs_detail 이 호출된다
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -54,7 +55,8 @@ def detect_intent_texts(project_id, session_id, text, language_code):
     resposeDic["parameters"] = paramDic
 
     jsonString = json.dumps(resposeDic)
-    print(jsonString)
-    return jsonString
+    jsonString = jsonString.replace("\\", "")
+    print (jsonString)
+    return resposeDic
 
 # Create your views here.
