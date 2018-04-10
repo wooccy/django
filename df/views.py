@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import uuid
 import dialogflow
-#import json
+import json
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -41,6 +41,7 @@ def detect_intent_texts(project_id, session_id, text, language_code):
 
     resposeDic = {
         "query_text" : response.query_result.query_text,
+        "query_text": response.query_result.query_text,
         "action" : response.query_result.action,
         "intent_detection_confidence" : response.query_result.intent_detection_confidence,
         "display_name" : response.query_result.intent.display_name,
@@ -52,8 +53,7 @@ def detect_intent_texts(project_id, session_id, text, language_code):
 
     resposeDic["parameters"] = paramDic
 
-    # jsonString = json.dumps(resposeDic)
-    jsonString = "{}".format(resposeDic)
+    jsonString = json.dumps(resposeDic)
     print(jsonString)
     return jsonString
 
