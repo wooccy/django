@@ -52,7 +52,8 @@ def detect_intent_texts(project_id, session_id, text, language_code):
 
     resposeDic["parameters"] = paramDic
 
-    jsonString = json.dumps(resposeDic)
+    # jsonString = json.dumps(resposeDic)
+    jsonString = "{}".format(resposeDic)
     print(jsonString)
     return jsonString
 
