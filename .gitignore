@@ -8,5 +8,5 @@ db.sqlite3
 /flaskrest
 /mysite/settings.py
 restfultest.json
-googleapi
+/googleapi
 client_secret.json
